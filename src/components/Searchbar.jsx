@@ -1,9 +1,9 @@
 import React,{useState} from 'react'
 import '../App.css'
-import {useDispatch} from 'react-redux'
+import {useDispatch,useSelector} from 'react-redux'
 import {queryAction}  from '../redux/action/index'
 function Searchbar() {
-   
+    const Query = useSelector((state) => state.query)
     const dispatch = useDispatch()
     const [query,setQuery] = useState('')
 
@@ -13,12 +13,13 @@ function Searchbar() {
                 <input 
                 type="text" 
                 className="SearchBar" 
+                placeholder="Search a character"
                 value={query}
-                placeholder="Search a characters"
                 onChange={(e) =>{
                     setQuery(e.target.value);
-                    e.target.value?dispatch(queryAction(query)):dispatch(queryAction(""))
+                    dispatch(queryAction(e.target.value))
                 }}
+
                 />
             </form>
         </div>
